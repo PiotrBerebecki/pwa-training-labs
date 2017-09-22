@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>11-promises-demo4</title>
+</head>
+<body>
+
+<script>
+//Promise.race takes an array of Promises and returns a Promise with the value (resolve or reject)
+//of the first settled Promise.
+
+//Demo 4a
+// we are passing as argument an array of promises that are already resolved,
+// to trigger Promise.race as soon as possible
+var resolvedPromisesArray = [Promise.resolve(33), Promise.resolve(44)];
+
+var p = Promise.race(resolvedPromisesArray);
+//// immediately logging the value of p
+console.log(p);
+
+//// using setTimeout we can execute code after the stack is empty
+setTimeout(function() {
+    console.log('the stack is now empty');
+    console.log(p);
+});
+
+//logs, in order:
+//Promise { <state>: "pending" }
+//the stack is now empty
+//Promise { <state>: "fulfilled", <value>: 33 }
+</script>
+
+
+    <script>
+    ////Using Promise.race – examples with setTimeout
+////Demo 4b
+//var p1 = new Promise(function (resolve, reject) {
+//    setTimeout(resolve, 500, 'one');
+//});
+//var p2 = new Promise(function (resolve, reject) {
+//    setTimeout(resolve, 100, 'two');
+//});
+
+//Promise.race([p1, p2]).then(function (value) {
+//    console.log(value); // "two"
+//    // Both resolve, but p2 is faster
+//});
+
+var p3 = new Promise(function(resolve, reject) {
+    setTimeout(resolve, 100, 'three');
+});
+var p4 = new Promise(function(resolve, reject) {
+    setTimeout(reject, 500, 'four');
+});
+
+Promise.race([p3, p4]).then(
+    function(value) {
+        console.log(value); // "three"
+        // p3 is faster, so it resolves
+    },
+    function(reason) {
+        // Not called
+    }
+);
+
+var p5 = new Promise(function(resolve, reject) {
+    setTimeout(resolve, 500, 'five');
+});
+var p6 = new Promise(function(resolve, reject) {
+    setTimeout(reject, 100, 'six');
+});
+
+Promise.race([p5, p6]).then(
+    function(value) {
+        // Not called
+    },
+    function(reason) {
+        console.log(reason); // "six"
+        // p6 is faster, so it rejects
+    }
+);
+</script>
+</body>
+</html>

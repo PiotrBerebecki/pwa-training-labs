@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>12-fetch-api-demo2</title>
+</head>
+<body>
+    <script>
+    //No-cors mode will allow you to get an opaque response. This can't be accessed by JavaScript
+//but it can still be served (as long as the receiver is happy with a no- cors response)
+//or cached by a service worker
+
+//Opaque responses are defined as part of the Fetch API, and represent the result of a request made
+//to a remote origin when CORS is not enabled.
+//Opaque responses is that you cannot get meaningful information back from most of the properties
+//of the Response class, like headers, or call the various methods that make up the Body interface,
+//like json() or text().
+//an be used as a resource on a web page whenever the browser allows for a cross-origin resource to be used.
+
+//clear cache (Ctrl Fn F5)
+
+fetch('http://www.qa.com', {
+    mode: 'no-cors',
+}).then(function(response) {
+    console.log(response.type); // "opaque"
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>12-fetch-api-demo3</title>
+</head>
+<body>
+    <script>
+    //Response Meta data
+var jsonData = 'https://api.myjson.com/bins/4jaln';
+
+fetch(jsonData).then(function(response) {
+    console.log(response.headers.get('Content-Type'));
+    console.log(response.headers.get('Date'));
+
+    console.log(response.status);
+    console.log(response.statusText);
+    console.log(response.type);
+    console.log(response.url);
+});
+</script>
+
+</body>
+</html>

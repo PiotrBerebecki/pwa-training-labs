@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>12-fetch-api-demo1</title>
+</head>
+<body>
+    <script>
+        //The Fetch API provides an interface for fetching resources (including across the network).
+        //It will seem familiar to anyone who has used XMLHttpRequest, but the new API provides a more powerful 
+        //and flexible feature set.
+
+        //Demo 1
+        //Fetch is passed the path to the resource you want to retrieve. 
+        //In this case we are fetching a JSON file
+        var jsonData = "https://api.myjson.com/bins/4jaln";
+        fetch(jsonData)
+            //Adding a response validity check allows the catch() block to take over.
+            .then(
+            response => {
+                if (response.status !== 200) {
+                    console.log('Looks like there was a problem. Status Code: ' +
+                        response.status);
+                    return;
+                }
+
+                // Examine the text in the response
+                response.json().then(data => {
+                    console.log(data);
+                });
+            }
+            )
+            .catch(err => {
+                console.log('Fetch Error :-S', err);
+            });
+    </script>
+</body>
+</html>

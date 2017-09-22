@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>11-promises-demo1</title>
+</head>
+<body>
+    <script>
+        //Just show demo 1a
+        //In the old days, doing several asynchronous operations in a row would lead to the classic
+        //callback pyramid of doom:
+        doSomething(function (result) {
+            doSomethingElse(result, function (newResult) {
+                doThirdThing(newResult, function (finalResult) {
+                    console.log('Got the final result: ' + finalResult);
+                }, failureCallback);
+            }, failureCallback);
+        }, failureCallback);
+    </script>
+
+    <script>
+        //Just show demo 1b
+        //ES5
+        //With modern functions, we attach our callbacks to the returned promises instead,
+        //forming a promise
+        //Think of a promise as an object that waits for an asynchronous action to finish,
+        //then calls a second function. You can schedule that second function by calling .then(next - function).
+        //When the asynchronous function finishes, it gives its result to the promise and the promise gives that
+        //to the next function (as a parameter).
+        //The arguments to then are optional,
+        //and catch(failureCallback) is short for then(null, failureCallback).
+
+        doSomething().then(function (result) {
+            return doSomethingElse(result);
+        })
+            .then(function (newResult) {
+                return doThirdThing(newResult);
+            })
+            .then(function (finalResult) {
+                console.log('Got the final result: ' + finalResult);
+            })
+            //When a promise rejects (or throws an error), it jumps to the first .catch()
+            //call following the error and passes control to its function.
+            .catch(failureCallback);
+    </script>
+
+    <script>
+        //Just show demo 1c
+        //ES6
+        // expressed with arrow functions
+        doSomething()
+            .then(result => doSomethingElse(result))
+            .then(newResult => doThirdThing(newResult))
+            .then(finalResult => {
+                console.log(`Got the final result: ${finalResult}`);
+            })
+            .catch(failureCallback);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>12-fetch-api-demo5</title>
+</head>
+<body>
+    <img/>
+
+    <script>
+    //Fetch is not limited to JSON.In this example we will fetch an image and append it to the
+//page.
+//fetching an image across the network and inserting it into an <img> element.
+
+var myImage = document.querySelector('img');
+
+//The simplest use of fetch() takes one argument — the path to the resource you want to fetch —
+//and returns a promise containing the response (a Response object).
+fetch('kitten.jpg')
+    .then(function(response) {
+        //To extract the image body content from the response, we use the blob() method
+        return response.blob();
+    })
+    .then(function(myBlob) {
+        //An objectURL is then created from the extracted Blob, which is then inserted into the img.
+        var objectURL = URL.createObjectURL(myBlob);
+        console.log('===== objectURL', objectURL);
+        myImage.src = objectURL;
+    });
+</script>
+</body>
+</html>

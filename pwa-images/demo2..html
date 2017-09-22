@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>02-responsive-images demo 1</title>
+</head>
+<body>
+    <!--The sizes attribute tells the browser the size or sizes of the element the srcset is attached to
+    so that the browser can use the appropriate image. In this case, we are telling the browser that
+    the image will be displayed at 50% of the viewport width.
+
+    For example, if the width of the browser screen is 900 pixels wide, then the image will be rendered at 450pixels.
+    The browser will select kitten-small.png as it’s the smallest image that is still larger than the viewport width.-->
+
+    <!--refresh to see changes -->
+
+    <img src="small.jpg" srcset="kitten-small.png 500w, kitten-medium.png 1000w, kitten-large.png 1500w"
+         sizes="50vw" alt="cute kitten" />
+
+</body>
+</html>

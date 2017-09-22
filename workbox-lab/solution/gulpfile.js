@@ -22,42 +22,40 @@ const runSequence = require('run-sequence');
 const wbBuild = require('workbox-build');
 
 // Clean output directory
-gulp.task('clean', () => del(['.tmp', 'build/*', '!build/.git'], {dot: true}));
+gulp.task('clean', () =>
+    del(['.tmp', 'build/*', '!build/.git'], { dot: true })
+);
 
 gulp.task('copy', () =>
-  gulp.src([
-    'app/**/*',
-    'node_modules/workbox-sw/build/importScripts/workbox-sw.prod*.js'
-  ]).pipe(gulp.dest('build'))
+    gulp
+        .src([
+            'app/**/*',
+            'node_modules/workbox-sw/build/importScripts/workbox-sw.prod*.js',
+        ])
+        .pipe(gulp.dest('build'))
 );
 
 gulp.task('bundle-sw', () => {
-  return wbBuild.injectManifest({
-    swSrc: 'app/service-worker.js',
-    swDest: 'build/service-worker.js',
-    globDirectory: 'app',
-    staticFileGlobs: [
-      'index.html',
-      'css/main.css'
-    ]
-  })
-  .catch((err) => {
-    console.log('[ERROR] This happened: ' + err);
-  });
+    return wbBuild
+        .injectManifest({
+            swSrc: 'app/service-worker.js',
+            swDest: 'build/service-worker.js',
+            globDirectory: 'app',
+            staticFileGlobs: ['index.html', 'css/main.css'],
+        })
+        .catch(err => {
+            console.log('[ERROR] This happened: ' + err);
+        });
 });
 
 gulp.task('default', ['clean'], cb => {
-  runSequence(
-    'copy',
-    'bundle-sw',
-    cb
-  );
+    runSequence('copy', 'bundle-sw', cb);
 });
 
 gulp.task('serve', ['default'], () => {
-  browserSync.init({
-    server: 'build',
-    port: 8002
-  });
-  gulp.watch('app/*', ['default']).on('change', browserSync.reload);
+    browserSync.init({
+        server: 'build',
+        port: 8002,
+    });
+    gulp.watch('app/*', ['default']).on('change', browserSync.reload);
 });

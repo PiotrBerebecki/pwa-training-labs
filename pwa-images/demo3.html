@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>02-responsive-images demo 1</title>
+</head>
+<body>
+
+    <!--We use all the techniques we discussed.
+        Combining media queries and srcset to specify images for different viewports
+       and also providing different images for different pixel densities.
+
+      Don't forget — tools like responsivebreakpoints.com will generate the images
+      and the corresponding code for you so you don’t have to do
+    -->
+
+    <!--Image not created !!! Just talk through and show links responsivebreakpoints.com-->
+
+    <picture>
+        <source media="(min-width: 1024px)" srcset="kitten-large.png 1x, kitten-large_2x.png 2x">
+        <source media="(min-width: 667px)" srcset="kitten-medium.png 1x, kitten-medium_2x.png 2x">
+        <img src="kitten-small.png" alt="Cute kitten"> 
+    </picture>
+
+    
+
+</body>
+</html>

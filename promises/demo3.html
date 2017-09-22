@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>11-promises-demo3</title>
+</head>
+<body>
+
+<script>
+//Promise.all returns a promise that resolves if all of the promises passed into it resolve.
+//If any of the passed-in promises reject, then Promise.all rejects with the reason of the first promise
+//that rejected.
+//This is very useful for ensuring that a group of asynchronous actions complete before proceeding to
+//another step.
+//Note: Even if an promise rejects, causing Promise.all to reject, the remaining promises
+//still settle.In other words, the remaining promises still execute, they simply are not returned
+//by Promise.all.
+
+var p1 = Promise.resolve(3);
+var p2 = 1337;
+var p3 = new Promise((resolve, rehect) => {
+    setTimeout(resolve, 1000, 'foo');
+});
+
+Promise.all([p1, p2, p3]).then(value => {
+    console.log(value);
+});
+</script>
+</body>
+</html>
